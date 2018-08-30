@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import unittest
 
 # Find the nth number of the fibonacci series
@@ -16,11 +17,12 @@ def nth_fibonacci_DP_top_down(n, memo=None):
     if n < 1:
         raise AssertionError
 
+    if n in [1, 2]:
+        return 1
+
     if memo == None:
         memo = dict()
 
-    if n in [1, 2]:
-        return 1
     else:
         if n in memo:
             return memo[n]
@@ -44,8 +46,18 @@ class FibonacciTest(unittest.TestCase):
         self.assertEqual(nth_fibonacci_DP_top_down(10), 55)
         print("Passed")
 
+    def test_fibonacci_times(self):
+        start_time = datetime.now()
+        nth_fibonacci(33)
+        print("Brute force nth_fibonacci = " + str(datetime.now() - start_time))
+
+        start_time = datetime.now()
+        nth_fibonacci_DP_top_down(33)
+        print("nth_fibonacci_dp_top_down = " + str(datetime.now() - start_time))
+
+
 test_nth_fibonacci = FibonacciTest()
 test_nth_fibonacci.test_one()
 test_nth_fibonacci.test_two()
 test_nth_fibonacci.test_ten()
-
+test_nth_fibonacci.test_fibonacci_times()
