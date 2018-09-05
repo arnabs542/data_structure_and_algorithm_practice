@@ -34,7 +34,6 @@ def is_max_palindrome_prime(word):
                 break
     is_prime(max)
 
-
 def is_prime(n):
     if n > 1 and all(n%i for i in islice(count(2), int(math.sqrt(n)-1))):
         print("PRIME")
