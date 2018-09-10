@@ -27,37 +27,47 @@ def num_ways_to_sum_DP_top_down(n, numbers, memo=None):
     memo[n] = totals
     return totals
 
-# def num_ways_to_sum_DP_bottom_up(n, numbers):
-#     total = 0
-#
-#     if n == 0:
-#         return 0
-#
-#     for curr in range(len(numbers)):
-#         for num in numbers:
-#             if curr - num == 0:
-#                 total += 1
-#     return total
+def num_ways_to_sum_DP_bottom_up(n, numbers, memo=None):
+    total = 0
+
+    if memo == None:
+        memo = dict()
+
+    for count in range(n+1):
+        for num in numbers:
+            if count - num in memo:
+                if count in memo:
+                    memo[count] += memo[count-num]
+                else:
+                    memo[count] = memo[count-num]
+            elif count - num == 0:
+                if count in memo:
+                    memo[count] += 1
+                else:
+                    memo[count] = 1
+
+    return memo[n]
+
 
 class SumTest(unittest.TestCase):
     def test_example_one(self):
         self.assertEqual(num_ways_to_sum(5,[1,3,4]), 6)
         self.assertEqual(num_ways_to_sum_DP_top_down(5,[1,3,4]), 6)
-        # self.assertEqual(num_ways_to_sum_DP_bottom_up(5,[1,3,4]), 6)
+        self.assertEqual(num_ways_to_sum_DP_bottom_up(5,[1,3,4]), 6)
         print("Passed")
 
     def test_sum_times(self):
         start_time = datetime.now()
-        num_ways_to_sum(35,[1,3,4])
+        num_ways_to_sum(33,[1,3,4])
         print("Brute force number of ways to sum = " + str(datetime.now() - start_time))
 
         start_time = datetime.now()
-        num_ways_to_sum_DP_top_down(35,[1,3,4])
+        num_ways_to_sum_DP_top_down(33,[1,3,4])
         print("Brute force number of ways to sum w/DP top down = " + str(datetime.now() - start_time))
 
-        # start_time = datetime.now()
-        # num_ways_to_sum_DP_bottom_up(35,[1,3,4])
-        # print("Brute force number of ways to sum w/DP bottom up = " + str(datetime.now() - start_time))
+        start_time = datetime.now()
+        num_ways_to_sum_DP_bottom_up(35,[1,3,4])
+        print("Brute force number of ways to sum w/DP bottom up = " + str(datetime.now() - start_time))
 
 test_sums = SumTest()
 test_sums.test_example_one()
