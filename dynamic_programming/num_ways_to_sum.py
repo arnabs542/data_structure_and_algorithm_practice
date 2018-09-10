@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 import unittest
 
+# given n, find the number of different ways to write n as
+# the sum of the array [1,3,4]
+
 def num_ways_to_sum(n, numbers):
     totals = 0
     for num in numbers:
