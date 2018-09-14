@@ -29,6 +29,21 @@ def longest_common_subsequence(string_one, string_two):
                 two_d_array[row][col] = max(cur_row_max, cur_col_max)
     print(longest)
 
-longest_common_subsequence("abcdaf", "acbcf")
-longest_common_subsequence("abcdefgizzzzaj", "abcdefghiabcdefgh")
+def longest_common_subsequence_2(string_one, string_two):
+    # build an empty 2D array of size [string_one] * [string_two]
+    two_d_array = [[0] * (len(string_two)+1) for i in range(len(string_one) + 1)]
+
+    longest = float('-inf')
+    for row in range(len(string_one)):
+        for col in range(len(string_two)):
+            if string_one[row] == string_two[col]:
+                two_d_array[row][col] = two_d_array[row-1][col-1] + 1
+                if two_d_array[row][col] > longest:
+                    longest = two_d_array[row][col]
+            else:
+                two_d_array[row][col] = max(two_d_array[row-1][col], two_d_array[row][col-1])
+    print(longest)
+
+longest_common_subsequence_2("abcdaf", "acbcf")
+longest_common_subsequence_2("abcdefgizzzzaj", "abcdefghiabcdefgh")
 
