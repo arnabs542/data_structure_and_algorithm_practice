@@ -21,4 +21,33 @@
 # The path we traversed was 1,2,3,-1,2,-1,3,2,1,1,1,1,1,20
 # Note that we hit the same -1 twice, but only count it once, making the total 37 not 36.
 
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the matrixLand function below.
+def matrixLand(A):
+    pass
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nm = input().split()
+
+    n = int(nm[0])
+
+    m = int(nm[1])
+
+    A = []
+
+    for _ in range(n):
+        A.append(list(map(int, input().rstrip().split())))
+
+    result = matrixLand(A)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
 
