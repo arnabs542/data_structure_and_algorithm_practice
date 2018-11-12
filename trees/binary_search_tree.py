@@ -1,12 +1,12 @@
 class Node:
-    def __init__(self, info):
-        self.info = info
+    def __init__(self, data):
+        self.data = data
         self.left = None
         self.right = None
         self.level = None
 
     def __str__(self):
-        return str(self.info)
+        return str(self.data)
 
 
 class BinarySearchTree:
@@ -20,13 +20,13 @@ class BinarySearchTree:
             current = self.root
 
             while True:
-                if val < current.info:
+                if val < current.data:
                     if current.left:
                         current = current.left
                     else:
                         current.left = Node(val)
                         break
-                elif val > current.info:
+                elif val > current.data:
                     if current.right:
                         current = current.right
                     else:
