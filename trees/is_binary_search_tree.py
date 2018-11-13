@@ -7,61 +7,55 @@ from trees.binary_search_tree import BinarySearchTree, Node
 #     The  value of every node in a node's right subtree is greater than the data value of that node.
 #     The  value of every node is distinct.
 
-def checkBST(root):
-    return checkBST_rec(root)
-
-def checkBST_rec(node, parent_max=None, parent_min=None):
-    left = right = False
-
-    if node.left == None and node.right == None:
+def is_subtree_lesser(node, value):
+    if node == None:
         return True
-
-    if node.left:
-        if node.left.data < node.data and (parent_max == None or node.left.data < parent_max ):
-            parent_max = node.data
-            left = checkBST_rec(node.left, parent_max, parent_min)
-    if node.right:
-        if node.right.data > node.data and (parent_min == None or node.right.data > parent_min):
-            parent_min = node.data
-            right = checkBST_rec(node.right, parent_max, parent_min)
-
-    if left and right:
-        return True
-    return False
-
-def is_bst(root, last=float('-inf')):
-    if root != None:
-        if root.left:
-            return is_bst(root.left, last)
-        if last < root.data:
-            last = root.data
+    else:
+        if node.data < value and is_subtree_lesser(node.left, value) and is_subtree_lesser(node.right, value):
+            return True
         else:
             return False
-        if root.right:
-            return is_bst(root.right, last)
+
+def is_subtree_greater(node, value):
+    if node == None:
         return True
+    else:
+        if node.data > value and is_subtree_greater(node.left, value) and is_subtree_greater(node.right, value):
+            return True
+        else:
+            return False
+
+def checkBST(root):
+    if root == None:
+        return True
+    if is_subtree_lesser(root.left, root.data) and is_subtree_greater(root.right, root.data) and checkBST(root.left) and checkBST(root.right):
+        return True
+    else:
+        return False
+
+def checkBST_better(root, min=float('inf'), max=float('-inf')):
+    if root == None:
+        return True
+    if (root.data < min and root.data > max
+            and checkBST_better(root.right, min, root.data)
+            and checkBST_better(root.left, root.data, max)):
+        return True
+    else:
+        return False
+
 
 tree = BinarySearchTree()
-t = int(input())
+tree.create(1)
+tree.root.right = Node(2)
+tree.root.right.right = Node(3)
+tree.root.right.right.right = Node(4)
+tree.root.right.right.right.right = Node(5)
+tree.root.right.right.right.right.right = Node(6)
+tree.root.right.right.right.right.right.right = Node(7)
 
-arr = list(map(int, input().split()))
 
-for i in range(t):
-    tree.create(arr[i])
-
-print(str(is_bst(tree.root)))
-
-# tree = BinarySearchTree()
-# tree.create(8)
-# tree.root.left = Node(6)
-# tree.root.left.left = Node(3)
-# tree.root.left.right = Node(7)
-# tree.root.left.left.left = Node(1)
-# tree.root.left.left.right = Node(5)
-# tree.root.left.left.right.left = Node(4)
-#
-# print(str(checkBST(tree.root)))
-
+# print('Should be True: ' + str(checkBST(tree.root)))
+print('Should be True: ' + str(checkBST_better(tree.root)))
 
 tree = BinarySearchTree()
 tree.create(1)
@@ -73,19 +67,25 @@ tree.root.right.right.right.right.right = Node(6)
 tree.root.right.right.right.right.right.right = Node(7)
 
 
-print(str(is_bst(tree.root)))
+# print('Should be False: ' + str(checkBST(tree.root)))
+print('Should be False: ' + str(checkBST_better(tree.root)))
 
 
-# tree = BinarySearchTree()
-# tree.create(8)
-# tree.root.left = Node(6)
-# tree.root.left.left = Node(3)
-# tree.root.left.right = Node(7)
-# tree.root.left.left.left = Node(1)
-# tree.root.left.left.right = Node(7)
-# tree.root.left.left.right.left = Node(4)
-
-print(str(is_bst(tree.root)))
+tree = BinarySearchTree()
+tree.create(8)
+tree.root.left = Node(6)
+tree.root.left.left = Node(3)
+tree.root.left.right = Node(7)
+tree.root.left.left.left = Node(1)
+tree.root.left.left.right = Node(7)
+tree.root.left.left.right.left = Node(4)
+#         8
+#      6
+#   3    7
+#1   7
+#   4
+# print('Should be False: ' + str(checkBST(tree.root)))
+print('Should be False: ' + str(checkBST_better(tree.root)))
 
 tree = BinarySearchTree()
 tree.create(8)
@@ -98,7 +98,13 @@ tree.root.right = Node(27)
 tree.root.right.right = Node(37)
 tree.root.right.right.left = Node(4)
 
-print(str(is_bst(tree.root)))
+#       8
+#    6    27
+#  3  7     37
+#1 4      4
+
+# print('Should be False: ' + str(checkBST(tree.root)))
+print('Should be False: ' + str(checkBST_better(tree.root)))
 
 '''
 SAMPLE INPUT
