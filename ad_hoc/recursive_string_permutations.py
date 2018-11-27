@@ -1,0 +1,22 @@
+# Write a recursive function for generating all permutations of an input string. Return them as a set.
+#
+# Don't worry about time or space complexity—if we wanted efficiency we'd write an iterative version.
+# To start, assume every character in the input string is unique.
+# Your function can have loops—it just needs to also be recursive.
+
+def string_permutations(string):
+    if len(string) <= 1:
+        return set([string])
+
+    perms = set()
+    remaining = string[:-1]
+    last = string[-1]
+    permutate = string_permutations(remaining)
+
+    for permutate in remaining:
+        for i in range(len(remaining)):
+            perms.add(remaining[:i] + last + remaining[i:])
+
+    return perms
+
+print(string_permutations("cats"))
