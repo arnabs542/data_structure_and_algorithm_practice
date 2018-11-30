@@ -4,19 +4,20 @@
 # To start, assume every character in the input string is unique.
 # Your function can have loops—it just needs to also be recursive.
 
-def string_permutations(string):
-    if len(string) <= 1:
+
+def get_permutations(string):
+    if len(string) <=1:
         return set([string])
 
-    perms = set()
-    remaining = string[:-1]
-    last = string[-1]
-    permutate = string_permutations(remaining)
+    permutations = set()
+    remainingLetters = string[:-1]
+    lastLetter = string[-1]
+    allPermutationsExceptLastLetter = get_permutations(remainingLetters)
+    
+    for perm in allPermutationsExceptLastLetter:
+        for position in range(len(allPermutationsExceptLastLetter) + 1):
+            permutation = perm[:position] + lastLetter + perm[position:]
+            permutations.add(permutation)
+    return permutations
 
-    for permutate in remaining:
-        for i in range(len(remaining)):
-            perms.add(remaining[:i] + last + remaining[i:])
-
-    return perms
-
-print(string_permutations("cats"))
+print(get_permutations("kite"))
