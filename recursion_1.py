@@ -300,4 +300,156 @@ def count11(string):
 # print(count11("abc11x11x11"))
 # print(count11("111"))
 
+'''
+Given a string, return recursively a "cleaned" string where adjacent chars that are the same have been reduced to a 
+single char. So "yyzzza" yields "yza".
 
+stringClean("yyzzza") → "yza"
+stringClean("abbbcdd") → "abcd"
+stringClean("Hello") → "Helo"
+'''
+def stringClean(string):
+    if len(string) <= 1:
+        return string
+    if string[0]==string[1]:
+        return stringClean(string[1:])
+    return string[0]+stringClean(string[1:])
+
+# print(stringClean("yyzzza"))
+# print(stringClean("abbbcdd"))
+# print(stringClean("Hello"))
+
+'''
+Given a string, compute recursively the number of times lowercase "hi" appears in the string, however do not count "hi" 
+that have an 'x' immedately before them.
+
+countHi2("ahixhi") → 1
+countHi2("ahibhi") → 2
+countHi2("xhixhi") → 0
+'''
+def countHi2(string):
+    if len(string)<2:
+        return 0
+    if len(string)==2:
+        if string=="hi":
+            return 1
+        return 0
+    if string[0]=='x' and string[1:3]=='hi':
+        return countHi2(string[2:])
+    if string[:2]=='hi':
+        return 1+countHi2(string[2:])
+    return countHi2(string[1:])
+
+# print(countHi2("ahixhi"))
+# print(countHi2("ahibhi"))
+# print(countHi2("xhixhi"))
+
+'''
+Given a string that contains a single pair of parenthesis, compute recursively a new string made of only of the 
+parenthesis and their contents, so "xyz(abc)123" yields "(abc)".
+
+parenBit("xyz(abc)123") → "(abc)"
+parenBit("x(hello)") → "(hello)"
+parenBit("(xy)1") → "(xy)"
+'''
+def parenBit(string):
+    if string[0]!='(':
+        return parenBit(string[1:])
+    if string[-1]!=')':
+        return parenBit(string[:-1])
+    return string
+
+# print(parenBit("xyz(abc)123"))
+# print(parenBit("x(hello)"))
+# print(parenBit("(xy)1"))
+
+'''
+Given a string, return true if it is a nesting of zero or more pairs of parenthesis, like "(())" or "((()))".
+Suggestion: check the first and last chars, and then recur on what's inside them.
+
+nestParen("(())") → true
+nestParen("((()))") → true
+nestParen("(((x))") → false
+'''
+def nestParen(parens):
+    if len(parens)==0:
+        return True
+    if parens[0]=='(' and parens[-1]==')':
+        return nestParen(parens[1:-1])
+    return False
+
+# print(nestParen("(())")) # True
+# print(nestParen("((()))")) # True
+# print(nestParen("(((x))")) # False
+# print(nestParen("(((x")) # False
+# print(nestParen("(((x)))")) # False
+
+'''
+Given a string and a non-empty substring sub, compute recursively the number of times that sub appears in the string, 
+without the sub strings overlapping.
+
+strCount("catcowcat", "cat") → 2
+strCount("catcowcat", "cow") → 1
+strCount("catcowcat", "dog") → 0
+'''
+def strCount(string, sub):
+    if len(string)<len(sub):
+        return 0
+    if string[0:len(sub)]==sub:
+        return 1+strCount(string[len(sub):], sub)
+    return strCount(string[1:], sub)
+
+# print(strCount("catcowcat", "cat")) # 2
+# print(strCount("catcowcat", "cow")) # 1
+# print(strCount("catcowcat", "dog")) # 0
+# print(strCount("ccc", "cc")) # 1 since we don't count overlaps
+
+'''
+Given a string and a non-empty substring sub, compute recursively if at least n copies of sub appear in the string
+somewhere, possibly with overlapping. N will be non-negative.
+
+
+strCopies("catcowcat", "cat", 2) → true
+strCopies("catcowcat", "cow", 2) → false
+strCopies("catcowcat", "cow", 1) → true
+strCopies("ccc", "c", 3) → true
+strCopies("ccc", "cc", 2) → true
+strCopies("ccc", "cc", 3) → false
+'''
+
+def strCopies(string, sub, copies):
+    if len(string)<len(sub):
+        return False
+    if string[0:len(sub)]==sub:
+        if copies-1 > 0:
+            return strCopies(string[1:], sub, copies-1)
+        return True
+    return strCopies(string[1:], sub, copies)
+
+# print(strCopies("catcowcat", "cat", 2)) # True
+# print(strCopies("catcowcat", "cow", 2)) # False
+# print(strCopies("catcowcat", "cow", 1)) # True
+# print(strCopies("ccc", "c", 3)) # True
+# print(strCopies("ccc", "cc", 2)) # True
+# print(strCopies("ccc", "cc", 3)) # False
+
+'''
+Given a string and a non-empty substring sub, compute recursively the largest substring which starts and ends with sub 
+and return its length.
+
+strDist("catcowcat", "cat") → 9
+strDist("catcowcat", "cow") → 3
+strDist("cccatcowcatxx", "cat") → 9
+'''
+def strDist(string, sub):
+    if len(string)<len(sub):
+        return 0
+    if string[0:len(sub)]!=sub:
+        return strDist(string[1:], sub)
+    if string[-3:]!=sub:
+        return strDist(string[:-1], sub)
+    return len(string)
+
+# print(strDist("catcowcat", "cat"))
+# print(strDist("catcowcat", "cow"))
+# print(strDist("cccatcowcatxx", "cat"))
