@@ -46,12 +46,31 @@ groupSum6(0, [5, 6, 2], 7) → false
 groupSum6(0, [8, 6, 2], 8) → true
 groupSum6(0, [8, 6, 1], 8) → false
 '''
-# def groupSum6(index, arr, target):
-#     if len(arr) == 0:
-#         return 0==target
-#
-#     if index >= len(target) and index < 0:
-#         return False
-#
-#     if arr[index]==target:
-#
+def groupSum6(index, arr, target):
+    if len(arr) == 0:
+        return 0==target
+
+    if index >= len(arr):
+        return target==0
+
+    if index < 0 or target < 0:
+        return False
+
+    if arr[index]==6:
+        return groupSum6(index+1, arr, target-6)
+
+    using = False
+    if arr[index] <= target:
+        using = groupSum6(index+1, arr, target-arr[index])
+    if using:
+        return True
+
+    return groupSum6(index+1, arr, target)
+
+# print(groupSum6(0, [5, 6, 2], 8))
+# print(groupSum6(0, [5, 6, 2], 9))
+# print(groupSum6(0, [5, 6, 2], 7))
+# print(groupSum6(0, [8, 6, 2], 8))
+# print(groupSum6(0, [8, 6, 1], 8))
+
+
