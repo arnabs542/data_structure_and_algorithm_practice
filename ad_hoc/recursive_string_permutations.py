@@ -22,9 +22,8 @@ def get_permutations(string):
 
 # print(get_permutations("kite"))
 
-def permutations(rest, soFar=None, perms=None):
-    if soFar == None or perms == None:
-        soFar = ""
+def permutations_rec(soFar, rest, perms=None):
+    if perms == None:
         perms = set()
 
     if len(rest) <= 0:
@@ -34,8 +33,10 @@ def permutations(rest, soFar=None, perms=None):
         for i in range(len(rest)):
             next = soFar + rest[i]
             remaining = rest[:i] + rest[i+1:]
-            permutations(remaining, next, perms)
+            permutations_rec(next, remaining, perms)
     return perms
 
+def permutations(string):
+    return permutations_rec("", string)
 
 print(permutations("kite"))
