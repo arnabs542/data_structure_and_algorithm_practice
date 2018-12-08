@@ -181,4 +181,18 @@ def groupSumClump(index, arr, target):
 # print(groupSumClump(0, [1, 2, 2, 2, 2, 5, 2], 8))
 # print(groupSumClump(0, [9, 2, 2, 2, 2, 5, 2], 6))
 
+'''
+Given an array of ints, is it possible to divide the ints into two groups, so that the sums of the two groups are the
+same. Every int must be in one group or the other. Write a recursive helper method that takes whatever arguments you 
+like, and make the initial call to your recursive helper from splitArray(). (No loops needed.)
+
+splitArray([2, 2]) → true
+splitArray([2, 3]) → false
+splitArray([5, 2, 3]) → true
+splitArray([2, 3, 5]) → true
+splitArray([2, 5, 3]) → true
+splitArray([2, 2, 2, 2]) → true
+splitArray([2]) → False 
+splitArray([]) → False 
+'''
 
