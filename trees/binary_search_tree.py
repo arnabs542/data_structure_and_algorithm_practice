@@ -35,3 +35,11 @@ class BinarySearchTree:
                 else:
                     break
 
+    def in_order_traversal(self):
+        self.in_order_traversal_rec(self.root)
+
+    def in_order_traversal_rec(self, node):
+        if node != None:
+            self.in_order_traversal_rec(node.left)
+            print(node.data, end=" ")
+            self.in_order_traversal_rec(node.right)

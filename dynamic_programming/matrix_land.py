@@ -28,26 +28,50 @@ import re
 import sys
 
 # Complete the matrixLand function below.
-def matrixLand(A):
-    pass
+def matrixLand(A, memo=None):
+    '''
+    am I a valid position in the matrix?
+    have I been to this cell before?
+    no
+        add cell num to my score
+        change cell num to 0 either in matrix or somehow in my own hashmap
+        can I explore left, right, or down(are they valid moves?)?
+            do I already have a max value for them in the hashmap?
+            yes
+                return your score
+            no
+                take the path that gives the highest score
+        yes
+    yes
+    '''
+    matrixLand_rec(A, 0, 0, 0)
+
+def matrixLand_rec(A, score, i, j, memo=None):
+    if memo == None:
+        memo = dict()
+
+    if i >= len(A) or i < 0 or j >= len(A[0]) or j < 0:
+        return score
+
+    if (i,j) in memo:
+        return 0
+
+    score += A[i][j]
+    memo[(i,j)] = A[i][j]
+
+    # change cell num to 0 either in matrix or somehow in my own hashmap
+    left = matrixLand_rec(A, score, i, j-1, memo)
+    right = matrixLand_rec(A, score, i, j+1, memo)
+    down = matrixLand_rec(A, score, i+1, j, memo)
+    return max(left, right, down)
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    # A = [[1, 2, 3, -1, -2],[-5, -8, -1, 2, -150],[1, 2, 3, -250, 100],[1, 1, 1, 1, 20]]
+    # A = [[3, -1, -2],[-1, 2, -150],[3, -250, 100]]
+    A = [[3, -2],[3, 100]]
 
-    nm = input().split()
-
-    n = int(nm[0])
-
-    m = int(nm[1])
-
-    A = []
-
-    for _ in range(n):
-        A.append(list(map(int, input().rstrip().split())))
 
     result = matrixLand(A)
 
-    fptr.write(str(result) + '\n')
-
-    fptr.close()
+    print(str(result) + '\n')
 

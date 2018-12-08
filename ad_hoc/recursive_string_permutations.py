@@ -20,4 +20,23 @@ def get_permutations(string):
             permutations.add(permutation)
     return permutations
 
-print(get_permutations("kite"))
+# print(get_permutations("kite"))
+
+def permutations_rec(soFar, rest, perms=None):
+    if perms == None:
+        perms = set()
+
+    if len(rest) <= 0:
+        # print(soFar)
+        perms.add(soFar)
+    else:
+        for i in range(len(rest)):
+            next = soFar + rest[i]
+            remaining = rest[:i] + rest[i+1:]
+            permutations_rec(next, remaining, perms)
+    return perms
+
+def permutations(string):
+    return permutations_rec("", string)
+
+print(permutations("kite"))
