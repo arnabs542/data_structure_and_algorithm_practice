@@ -67,13 +67,17 @@ Sample Output-4:
 #     for triplet in zeros:
 #         print('{},{},{}'.format(triplet[0],triplet[1],triplet[2]))
 
-def findZeroSum(arr):
-    hash = dict()
-    for i in range(len(arr)):
-        for j in range(i+1, len(arr)):
-            hash[i+j]
-
-findZeroSum([10, 3, -4, 1, -6, 9])
-findZeroSum([12, 34, -46])
-findZeroSum([0, 0, 0])
-findZeroSum([-2, 2, 0, -2, 2])
+# def findZeroSum(arr):
+#     hash = dict()
+#     for i in range(len(arr)):
+#         for j in range(i+1, len(arr)):
+#             if -(arr[i]+arr[j]) in hash:
+#                 print('{},{},{}'.format(arr[i],arr[j],-(arr[i]+arr[j])))
+#             else:
+#                 hash[arr[j]] = j
+#
+#
+# findZeroSum([10, 3, -4, 1, -6, 9])
+# findZeroSum([12, 34, -46])
+# findZeroSum([0, 0, 0])
+# findZeroSum([-2, 2, 0, -2, 2])
