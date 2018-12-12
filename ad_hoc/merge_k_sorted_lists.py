@@ -40,29 +40,12 @@ Sample Output-1:
 '''
 
 def merge_k_sorted_lists(list_of_lists):
-    i = 0
-    for i in range(len(list_of_lists)):
-        list = list_of_lists[i]
-        if len(list) > 0:
-            if list[0]==list[-1]:
-                continue
-            elif list[0] < list[-1]:
-                return merge_k_sorted_lists_min_max(list_of_lists)
-            else:
-                return merge_k_sorted_lists_min_max(list_of_lists, True)
-    return merge_k_sorted_lists_min_max(list_of_lists)
-
-
-def merge_k_sorted_lists_min_max(list_of_lists, is_max_heap=False):
     merged_list = []
     heap = []
     i = 0
     while i < len(list_of_lists):
         if len(list_of_lists[i]) > 0:
-            if is_max_heap:
-                heapq.heappush(heap, (-list_of_lists[i][0],i))
-            else:
-                heapq.heappush(heap, (list_of_lists[i][0],i))
+            heapq.heappush(heap, (list_of_lists[i][0],i))
             del list_of_lists[i][0]
             i+=1
         else:
@@ -70,21 +53,15 @@ def merge_k_sorted_lists_min_max(list_of_lists, is_max_heap=False):
 
     while len(heap) > 0:
         value,list_index = heapq.heappop(heap)
-        if is_max_heap:
-            merged_list.append(-value)
-        else:
-            merged_list.append(value)
+        merged_list.append(value)
         if len(list_of_lists[list_index]) > 0:
-            if is_max_heap:
-                heapq.heappush(heap,(-list_of_lists[list_index][0], list_index))
-            else:
-                heapq.heappush(heap,(list_of_lists[list_index][0], list_index))
+            heapq.heappush(heap,(list_of_lists[list_index][0], list_index))
             del list_of_lists[list_index][0]
 
     return merged_list
 
 
-# print(merge_k_sorted_lists([[0,0,3],[3,3,4],[2,22,3000]]))
+print(merge_k_sorted_lists([[0,0,3],[3,3,4],[2,22,3000]]))
 # print(merge_k_sorted_lists([[0,3],[3,3,4],[2,22,3000]]))
 # print(merge_k_sorted_lists([[],[3,3,4],[2,22,3000]]))
 # print(merge_k_sorted_lists([[],[],[]]))
