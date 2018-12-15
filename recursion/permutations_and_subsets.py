@@ -4,6 +4,7 @@
 # To start, assume every character in the input string is unique.
 # Your function can have loops—it just needs to also be recursive.
 
+# InterviewKickstart way using no extra space and just passing index around
 def permute(arr, i):
     n = len(arr)
 
@@ -17,6 +18,7 @@ def permute(arr, i):
 
 permute(list("kite"), 0)
 
+# InterviewCake way that's confusing, space-inefficient, and more complex than necessary
 def get_permutations(string):
     if len(string) <=1:
         return set([string])
@@ -34,6 +36,7 @@ def get_permutations(string):
 
 # print(get_permutations("kite"))
 
+# Stanford lecture way of doing permutations
 def permutations_rec(soFar, rest, perms=None):
     if perms == None:
         perms = set()
@@ -53,7 +56,7 @@ def permutations(string):
 
 # print(permutations("kite"))
 
-
+# Stanford lecture way of doing subsets
 def subsets(soFar, rest):
     if len(rest)==0:
         print(soFar)
