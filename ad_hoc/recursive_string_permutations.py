@@ -4,6 +4,18 @@
 # To start, assume every character in the input string is unique.
 # Your function can have loops—it just needs to also be recursive.
 
+def permute(arr, i):
+    n = len(arr)
+
+    if i==n-1:
+        print(arr)
+        return
+    for j in range(i, n):
+        arr[i],arr[j]=arr[j],arr[i]
+        permute(arr, i+1)
+        arr[i],arr[j]=arr[j],arr[i]
+
+permute(list("kite"), 0)
 
 def get_permutations(string):
     if len(string) <=1:
@@ -39,4 +51,16 @@ def permutations_rec(soFar, rest, perms=None):
 def permutations(string):
     return permutations_rec("", string)
 
-print(permutations("kite"))
+# print(permutations("kite"))
+
+
+def subsets(soFar, rest):
+    if len(rest)==0:
+        print(soFar)
+    else:
+        # try using the element
+        subsets(soFar + rest[0], rest[1:])
+        # try NOT using the element
+        subsets(soFar, rest[1:])
+
+# print(subsets("", "kite"))

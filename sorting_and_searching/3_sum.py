@@ -81,3 +81,30 @@ Sample Output-4:
 # findZeroSum([12, 34, -46])
 # findZeroSum([0, 0, 0])
 # findZeroSum([-2, 2, 0, -2, 2])
+
+
+def findZeroSum(arr):
+    n = len(arr)
+    results = set()
+
+    arr.sort()
+    if n < 3:
+        return []
+    for i in range(n - 2):
+        j = i+1
+        k = n-1
+        while j < k:
+            if arr[i]+arr[j]+arr[k] == 0:
+                results.add((arr[i],arr[j],arr[k]))
+                j+=1
+                k-=1
+            elif arr[i]+arr[j]+arr[k] < 0:
+                j+=1
+            else:
+                k-=1
+    return list(results)
+
+print(findZeroSum([10, 3, -4, 1, -6, 9]))
+print(findZeroSum([12, 34, -46]))
+print(findZeroSum([0, 0, 0]))
+print(findZeroSum([-2, 2, 0, -2, 2]))

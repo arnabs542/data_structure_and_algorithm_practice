@@ -98,7 +98,6 @@ def lexicographical_order(arr):
     result.append('{}:{},{}'.format(key,occurances,value))
     return result
 
-
 arr =  [
   'key1 abcd',
   'key2 zzz',
