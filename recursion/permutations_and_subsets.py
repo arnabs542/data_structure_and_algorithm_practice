@@ -1,3 +1,4 @@
+from copy import deepcopy
 # Write a recursive function for generating all permutations of an input string. Return them as a set.
 #
 # Don't worry about time or space complexity—if we wanted efficiency we'd write an iterative version.
@@ -96,4 +97,53 @@ def subsets(soFar, rest):
         subsets(soFar, rest[1:])
 
 # print(subsets("", "kite"))
+
+# subsets('','tdco')
+
+'''
+Given an array of positive integers, print only those subsets that have a certain sum. (If the values can be negative,
+this is a simple change in the base case, where you print the said subset only if it has the right sum)
+'''
+
+def subsets_of_certain_sum(soFar, rest, target):
+    if len(rest) == 0:
+        if sum(soFar) == target:
+            print(soFar)
+        return
+    consider = rest[0]
+    newRest = deepcopy(rest)
+    del newRest[0]
+    newSoFar = deepcopy(soFar)
+    subsets_of_certain_sum(soFar, newRest, target)
+    newSoFar.append(consider)
+    subsets_of_certain_sum(newSoFar, newRest, target)
+
+subsets_of_certain_sum([], [1,2,45,6,7,3], 10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
