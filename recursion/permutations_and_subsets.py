@@ -16,7 +16,7 @@ def permute(arr, i):
         permute(arr, i+1)
         arr[i],arr[j]=arr[j],arr[i]
 
-permute(list("kite"), 0)
+# permute(list("kite"), 0)
 
 # InterviewCake way that's confusing, space-inefficient, and more complex than necessary
 def get_permutations(string):
@@ -56,6 +56,35 @@ def permutations(string):
 
 # print(permutations("kite"))
 
+
+'''
+Assume that the input is an array of size 'n' where 'n' is an even number. Additionally, assume that  half the integers
+are even and the other half are odd. Print only those permutations where odd and even integers alternate, starting with
+odd.
+'''
+def is_alternating_even_odd_with_odd_start(arr):
+    i = 0
+    while i < len(arr):
+        num = arr[i]
+        if i%2==0:
+            if num%2==0:
+                return False
+        else:
+            if num%2!=0:
+                return False
+        i+=1
+    return True
+
+def print_alternating_permutations_starting_odd(arr, i = 0):
+    if i==len(arr)-1 and is_alternating_even_odd_with_odd_start(arr):
+        print(arr)
+    for j in range(i, len(arr)):
+        arr[i],arr[j]=arr[j],arr[i]
+        print_alternating_permutations_starting_odd(arr, i+1)
+        arr[i],arr[j]=arr[j],arr[i]
+
+# print_alternating_permutations_starting_odd([2,1,3,9,8])
+
 # Stanford lecture way of doing subsets
 def subsets(soFar, rest):
     if len(rest)==0:
@@ -67,3 +96,4 @@ def subsets(soFar, rest):
         subsets(soFar, rest[1:])
 
 # print(subsets("", "kite"))
+
