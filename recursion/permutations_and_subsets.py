@@ -118,7 +118,39 @@ def subsets_of_certain_sum(soFar, rest, target):
     newSoFar.append(consider)
     subsets_of_certain_sum(newSoFar, newRest, target)
 
-subsets_of_certain_sum([], [1,2,45,6,7,3], 10)
+# subsets_of_certain_sum([], [1,2,45,6,7,3], 10)
+
+
+
+def get_subsets(soFar, rest, r_i, subsets):
+    if r_i == len(rest):
+        subsets.add(''.join(soFar))
+        return
+    next = deepcopy(soFar)
+    remaining = deepcopy(rest)
+    i = r_i
+    while i < len(remaining):
+        next.append(remaining[i])
+        del remaining[i]
+        get_subsets(next, remaining, i, subsets)
+        next = deepcopy(soFar)
+        get_subsets(next, remaining, i, subsets)
+
+def generate_all_subsets(string):
+    subsets = set()
+    get_subsets([], list(string), 0, subsets)
+    return list(subsets)
+
+print(generate_all_subsets("okmijnuhbyg"))
+
+
+
+
+
+
+
+
+
 
 
 
