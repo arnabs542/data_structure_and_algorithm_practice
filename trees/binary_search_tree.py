@@ -45,3 +45,28 @@ class BinarySearchTree:
             self.in_order_traversal_rec(node.left)
             print(node.data, end=" ")
             self.in_order_traversal_rec(node.right)
+
+    def insert(self, current_node, val):
+        if self.root == None:
+            self.root = Node(val)
+            return
+        elif val < current_node.data and current_node.left: # can still go farther
+            self.insert(current_node.left, val)
+            return
+        elif val > current_node.data and current_node.right:
+            self.insert(current_node.right, val)
+            return
+
+        new_node = Node(val)
+        if val <= current_node.data:
+            current_node.left = new_node
+        else:
+            current_node.right = new_node
+
+
+bt = BinarySearchTree() # actually this is just a binary tree not a BST, but whatevs
+bt.root = Node(20)
+bt.root.left = Node(10)
+bt.root.left.right = Node(17)
+bt.insert(bt.root, 15)
+bt.in_order_traversal()
