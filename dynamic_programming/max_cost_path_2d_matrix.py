@@ -61,7 +61,7 @@ class MaximumCostTest(unittest.TestCase):
                    [16, 17, 18, 19, 20],
                    [21, 22, 23, 24, 25]]
         start_time = datetime.now()
-        bottom_up(grid)
+        self.assertEqual(bottom_up(grid), 149)
         print("Maximum cost path bottom up = " + str(datetime.now() - start_time))
 
 test = MaximumCostTest()
