@@ -86,22 +86,6 @@ class BinarySearchTree:
     #
     #     if current_node.left and val < current_node:
 
-    def delete(self, current_node, val):
-        if current_node == None:
-            return
-        # check that it exists in the tree
-        node_to_delete = self.find(current_node, val)
-        if node_to_delete != None:
-            if node_to_delete.left == None and node_to_delete.right == None: # node with no children
-                current = self.root
-                while current.left or current.right:
-                    if current.left and current.left.data != node_to_delete.data and current.right and current.right.data != node_to_delete.data):
-                    if node_to_delete.data < current.data:
-                        current = current.left
-                    else:
-                        current = current.right
-            # node with one child
-            # node with two children
 
 
 
