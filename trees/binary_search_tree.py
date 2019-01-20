@@ -1,4 +1,5 @@
 from collections import deque
+from copy import deepcopy
 
 class Node:
     def __init__(self, data):
@@ -93,35 +94,44 @@ class BinarySearchTree:
         size_should_be = 1
         ans = []
         level = []
+        kids_to_subtract = 0
 
         while len(q) > 0:
             cur_node = q.pop()
-            if len(level) == 0:
-                ans.append(level)
-                level = []
-                size_should_be = last_size *2 - 1
-                last_size = last_size * 2
-            else:
+            if size_should_be > 0:
                 size_should_be -= 1
-                level.append(cur_node)
+                level.append(cur_node.data)
 
             if cur_node.left:
-                q.append(cur_node.left)
+                q.appendleft(cur_node.left)
             else:
-                size_should_be -= 1
+                kids_to_subtract += 1
             if cur_node.right:
-                q.append(cur_node.right)
+                q.appendleft(cur_node.right)
             else:
-                size_should_be -= 1
+                kids_to_subtract += 1
+
+            if size_should_be <= 0:
+                ans.append(level)
+                level = []
+                size_should_be = last_size *2-kids_to_subtract
+                last_size = last_size * 2
+                kids_to_subtract = 0
         return ans
 
 
-
+# bt = BinarySearchTree()
+# bt.root = Node(20)
+# bt.root.left = Node(10)
+# bt.root.left.right = Node(17)
+# bt.insert(bt.root, 15)
+# bt.in_order_traversal()
+# bt.delete(bt.root, 15)
 
 bt = BinarySearchTree()
-bt.root = Node(20)
-bt.root.left = Node(10)
-bt.root.left.right = Node(17)
-bt.insert(bt.root, 15)
-bt.in_order_traversal()
-bt.delete(bt.root, 15)
+bt.root = Node(3)
+bt.root.left = Node(9)
+bt.root.right = Node(20)
+bt.root.right.left = Node(15)
+bt.root.right.right = Node(7)
+print(bt.level_order_as_arrays())
