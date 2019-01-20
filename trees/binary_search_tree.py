@@ -86,10 +86,39 @@ class BinarySearchTree:
     #
     #     if current_node.left and val < current_node:
 
+    def level_order_as_arrays(self):
+        q = deque()
+        q.append(self.root)
+        last_size = 1
+        size_should_be = 1
+        ans = []
+        level = []
+
+        while len(q) > 0:
+            cur_node = q.pop()
+            if len(level) == 0:
+                ans.append(level)
+                level = []
+                size_should_be = last_size *2 - 1
+                last_size = last_size * 2
+            else:
+                size_should_be -= 1
+                level.append(cur_node)
+
+            if cur_node.left:
+                q.append(cur_node.left)
+            else:
+                size_should_be -= 1
+            if cur_node.right:
+                q.append(cur_node.right)
+            else:
+                size_should_be -= 1
+        return ans
 
 
 
-bt = BinarySearchTree() # actually this is just a binary tree not a BST, but whatevs
+
+bt = BinarySearchTree()
 bt.root = Node(20)
 bt.root.left = Node(10)
 bt.root.left.right = Node(17)
