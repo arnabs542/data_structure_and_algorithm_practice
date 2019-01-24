@@ -1,4 +1,5 @@
 from collections import deque
+from copy import deepcopy
 
 class Node:
     def __init__(self, data):
@@ -86,29 +87,51 @@ class BinarySearchTree:
     #
     #     if current_node.left and val < current_node:
 
-    def delete(self, current_node, val):
-        if current_node == None:
-            return
-        # check that it exists in the tree
-        node_to_delete = self.find(current_node, val)
-        if node_to_delete != None:
-            if node_to_delete.left == None and node_to_delete.right == None: # node with no children
-                current = self.root
-                while current.left or current.right:
-                    if current.left and current.left.data != node_to_delete.data and current.right and current.right.data != node_to_delete.data):
-                    if node_to_delete.data < current.data:
-                        current = current.left
-                    else:
-                        current = current.right
-            # node with one child
-            # node with two children
+    def level_order_as_arrays(self):
+        q = deque()
+        q.append(self.root)
+        last_size = 1
+        size_should_be = 1
+        ans = []
+        level = []
+        kids_to_subtract = 0
+
+        while len(q) > 0:
+            cur_node = q.pop()
+            if size_should_be > 0:
+                size_should_be -= 1
+                level.append(cur_node.data)
+
+            if cur_node.left:
+                q.appendleft(cur_node.left)
+            else:
+                kids_to_subtract += 1
+            if cur_node.right:
+                q.appendleft(cur_node.right)
+            else:
+                kids_to_subtract += 1
+
+            if size_should_be <= 0:
+                ans.append(level)
+                level = []
+                size_should_be = last_size *2-kids_to_subtract
+                last_size = last_size * 2
+                kids_to_subtract = 0
+        return ans
 
 
+# bt = BinarySearchTree()
+# bt.root = Node(20)
+# bt.root.left = Node(10)
+# bt.root.left.right = Node(17)
+# bt.insert(bt.root, 15)
+# bt.in_order_traversal()
+# bt.delete(bt.root, 15)
 
-bt = BinarySearchTree() # actually this is just a binary tree not a BST, but whatevs
-bt.root = Node(20)
-bt.root.left = Node(10)
-bt.root.left.right = Node(17)
-bt.insert(bt.root, 15)
-bt.in_order_traversal()
-bt.delete(bt.root, 15)
+# bt = BinarySearchTree()
+# bt.root = Node(3)
+# bt.root.left = Node(9)
+# bt.root.right = Node(20)
+# bt.root.right.left = Node(15)
+# bt.root.right.right = Node(7)
+# print(bt.level_order_as_arrays())
