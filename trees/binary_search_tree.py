@@ -3,6 +3,11 @@ from copy import deepcopy
 
 class Node:
     def __init__(self, data):
+        '''
+        data parameter is the value of the current node
+        automatically creates left, right and level with None object set
+        :param data:
+        '''
         self.data = data
         self.left = None
         self.right = None
@@ -13,8 +18,14 @@ class Node:
 
 
 class BinarySearchTree:
-    def __init__(self):
+    def __init__(self, data=None):
+        '''
+        Optional data parameter initializes the BST to the passed value
+        Defaults all other member variables to None
+        :param data:
+        '''
         self.root = None
+        self.create(data)
 
     def create(self, val):
         if self.root == None:
