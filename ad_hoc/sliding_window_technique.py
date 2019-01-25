@@ -161,5 +161,108 @@ def minWindowSubstring(S, T):
 
     return ''.join(S[shortest[0]: shortest[1]+1])
 
-print(minWindowSubstring('ADCABDCE', 'ABC'))
-print(minWindowSubstring('ADABDCEBANAC', 'AABC'))
+# print(minWindowSubstring('ADCABDCE', 'ABC'))
+# print(minWindowSubstring('ADABDCEBANAC', 'AABC'))
+
+'''
+Given a binary array and an integer m, find the position of zeroes flipping which 
+creates maximum number of consecutive 1’s in array.
+
+Input:   arr[] = {1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1}
+         m = 2
+Output:  5 7
+We are allowed to flip maximum 2 zeroes. If we flip
+arr[5] and arr[7], we get 8 consecutive 1's which is
+maximum possible under given constraints 
+
+Input:   arr[] = {1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1}
+         m = 1
+Output:  7
+We are allowed to flip maximum 1 zero. If we flip 
+arr[7], we get 5 consecutive 1's which is maximum 
+possible under given constraints.
+
+Input:   arr[] = {0, 0, 0, 1}
+         m = 4
+Output:  0 1 2
+Since m is more than number of zeroes, we can flip
+all zeroes.
+                  0  1  2  3  4  5  6  7  8  9  10
+Input:   arr[] = {1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1}
+                           lu
+                                                c
+                                                
+                  0  1  2  3                        
+Input:   arr[] = {0, 0, 0, 1}
+                  lu
+                          c
+zeros_we_can_flip = 1
+cur_max_zeros = 4
+max_zeros = 4
+zeros_to_flip = [1,1,1,0]
+
+loop through array end we reach the end
+    if current num is a one
+        cur_max_zeros += 1
+    else:
+        if zeros_we_can_flip > 0:
+            zeros_we_can_flip -= 1
+            cur_max_zeros += 1
+            zeros_to_flip[current_index] = 1
+        else: # you're on a 0 but there are no more zeros you can flip
+            # increase lu until you have zeros_we_can_flip > 0 then continue algorithm
+            while last_used < cur_index and zeros_we_can_flip == 0:
+                if arr[last_used_index] == 0:
+                    zeros_we_can_flip += 1
+                    zeros_to_flip[last_used_index] = 0
+                    i -= 1
+                cur_max -= 1
+                last_used += 1
+                
+            last_used_index += 1 ????? incrementing here will screw up during second while loop?
+            
+    i += 1
+    if max_zeros < cur_max_zeros:
+        max_zeros = cur_max_zeros
+        
+for index,bit in enumerate(zeros_to_flip):
+    if bit == 1:
+        print(index, end=' ')
+'''
+
+def bit_position_for_max_ones(arr, m):
+   cur_index = 0
+   last_used_index = 0
+   cur_max_zeros = 0
+   max_zeros = 0
+   zeros_we_can_flip = m
+   zeros_to_flip = [0]*len(arr)
+   while cur_index < len(arr):
+       if arr[cur_index] == 1:
+           cur_max_zeros += 1
+       elif zeros_we_can_flip > 0: # you're on a 0 and you can turn it into a 1
+           zeros_we_can_flip -= 1
+           cur_max_zeros += 1
+           zeros_to_flip[cur_index] = 1
+       else: # you're on a 0 and you can't turn it into a one
+           while last_used_index <= cur_index and zeros_we_can_flip == 0:
+               if arr[last_used_index] == 0 and m != 0:
+                   zeros_we_can_flip += 1
+                   zeros_to_flip[last_used_index] = 0
+                   cur_index -= 1
+               cur_max_zeros -= 1
+               last_used_index += 1
+
+       max_zeros = max(max_zeros, cur_max_zeros)
+       cur_index += 1
+
+   for index,bit in enumerate(zeros_to_flip):
+        if bit == 1:
+            print(index, end=' ')
+
+# bit_position_for_max_ones([0,0,0,1], 4)
+# bit_position_for_max_ones([0,0,0,0], 4)
+# bit_position_for_max_ones([0,0,0,0], 1)
+# bit_position_for_max_ones([0,0,0,0], 0)
+# bit_position_for_max_ones([1,0,0,1,1,0,1,0,1,1,1], 2)
+# bit_position_for_max_ones([1,0,0,1,1,0,1,0,1,1,1], 1)
