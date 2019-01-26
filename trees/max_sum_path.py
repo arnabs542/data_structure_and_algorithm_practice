@@ -1,7 +1,7 @@
 from trees.binary_search_tree import BinarySearchTree,Node
 
 class MaxSum:
-    def __int__(self, root):
+    def __init__(self, root):
         self.max = float('-inf')
         self.root = root
 
@@ -26,8 +26,8 @@ MAX = 100
 bst = BinarySearchTree(-20)
 bst.root.left = Node(1)
 bst.root.right = Node(100)
-m = MaxSum()
-m.__int__(bst.root)
+m = MaxSum(bst.root)
+# m.__int__(bst.root)
 print(m.find_max_path())
 
 '''
@@ -39,8 +39,7 @@ MAX = 121
 bst = BinarySearchTree(20)
 bst.root.left = Node(1)
 bst.root.right = Node(100)
-m = MaxSum()
-m.__int__(bst.root)
+m = MaxSum(bst.root)
 print(m.find_max_path())
 
 '''
@@ -52,8 +51,7 @@ MAX = 110
 bst = BinarySearchTree(-120)
 bst.root.left = Node(110)
 bst.root.right = Node(100)
-m = MaxSum()
-m.__int__(bst.root)
+m = MaxSum(bst.root)
 print(m.find_max_path())
 
 '''
@@ -69,8 +67,7 @@ bst.root.left = Node(110)
 bst.root.right = Node(100)
 bst.root.right.left = Node(5)
 bst.root.right.right = Node(6)
-m = MaxSum()
-m.__int__(bst.root)
+m = MaxSum(bst.root)
 print(m.find_max_path())
 
 '''
@@ -89,8 +86,7 @@ bst.root.right = Node(100)
 bst.root.right.left = Node(5)
 bst.root.right.right = Node(-6)
 bst.root.right.right.left = Node(700)
-m = MaxSum()
-m.__int__(bst.root)
+m = MaxSum(bst.root)
 print(m.find_max_path())
 
 '''
@@ -109,6 +105,5 @@ bst.root.right = Node(-1000)
 bst.root.right.left = Node(5)
 bst.root.right.right = Node(-6)
 bst.root.right.right.left = Node(700)
-m = MaxSum()
-m.__int__(bst.root)
+m = MaxSum(bst.root)
 print(m.find_max_path())
