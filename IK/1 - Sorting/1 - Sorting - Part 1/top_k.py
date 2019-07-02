@@ -1,3 +1,5 @@
+import sys
+import os
 import heapq
 '''
 Problem Statement:
@@ -76,3 +78,75 @@ def top_k(arr, k):
 # print(top_k([1,1,1,1,1,1,1], 2))
 # print(top_k([1,2,2,4,5,8,0], 4))
 print(top_k([7, 6, 1, 9, 9, 1, 6, 8, 1, 6, 2, 3, 10, 10, 7, 3, 6, 4, 5, 4], 6))
+
+
+if __name__ == "__main__":
+    f = sys.stdout
+
+    arr_cnt = 0
+    arr_cnt = int(input())
+    arr_i = 0
+    arr = []
+    while arr_i < arr_cnt:
+        arr_item = int(input())
+        arr.append(arr_item)
+        arr_i += 1
+
+    k = int(input())
+
+    res = top_k(arr, k);
+    for res_cur in res:
+        f.write( str(res_cur) + "\n" )
+
+    f.close()
+
+
+'''
+=== EDITORIAL ===
+We need to preserve the order of elements in a sorted manner. If we can do that, we can obtain top K elements. Also, 
+if an element is smaller than the last element in top k, then that element can be dropped as we are not deleting 
+elements.
+
+We can maintain a balanced BST or a sorted set collection. Keep adding new elements to the sorted set and if the size 
+of the tree increases more than k, remove the smallest element.
+
+Time Complexity: O(N*log(K))
+Space Complexity: O(K)
+
+from heapq import heappush, heappop
+
+
+def topK(arr, k):
+    heap = []
+    if not arr:
+        return heap
+    # use a set to not have duplicates in the heap
+    heap_set = set()
+    for item in arr:
+        if item in heap_set:
+            continue
+        if len(heap) < k:
+            # push the first k items
+            heappush(heap, item)
+            heap_set.add(item)
+        else:
+            # then remove the smallest item and push another item if it's greater than the smallest
+            # to maintain the invariant of the largest k being in the heap
+            if item > heap[0]:
+                out = heappop(heap)
+                heap_set.remove(out)
+                heappush(heap, item)
+                heap_set.add(item)
+    # at the end return the largest values uniquely
+    return heap
+
+
+a = [1, 5, 4, 4, 2]
+k = 2
+print topK(a, k)
+
+a = [1, 5, 1, 5, 1]
+k = 2
+print topK(a, k)
+
+'''

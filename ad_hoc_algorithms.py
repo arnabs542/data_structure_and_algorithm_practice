@@ -29,4 +29,101 @@ start = -4
 end = 12000
 print_missing_nums(list, start, end)
 
-#
+
+
+
+
+'''
+SECOND SOLUTION
+
+/*
+c++ solution
+void printNumber(int start, int end) {
+    if (start == end) {
+        cout << start << endl;
+    } else {
+        if (start < 0) {
+            cout << "(" << start << ")-";
+        } else {
+            cout << start << "-";
+        }
+        if (end < 0) {
+            cout << "(" << end << ")" << endl;
+        } else {
+            cout << end << endl;
+        }
+    }
+}
+
+void printTheRangeWithHyphens(vector<int> &nums, int start, int end) {
+    if (start > end) return;
+    if (nums.size() == 0) {
+        printNumber(start, end);
+    }
+
+    int next = start;
+
+    for (int n : nums) {
+        if (n < start) {
+            continue;
+        }
+        if (n > end) {
+            printNumber(next, end);
+            return;
+        }
+        if (n > next) {
+            printNumber(next, n - 1);
+        }
+        next = n + 1;
+    }
+    if (next <= end) {
+        printNumber(next, end);
+    }
+}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    vector<int> nums = {0,1,3,5,7,8,9,13};
+    int start = -5;
+    int end = 90;
+    printTheRangeWithHyphens(nums, start, end);
+    return 0;
+}
+
+*/
+'''
+
+def printNumbers(start, end):
+    if start==end:
+        print(start)
+    else:
+        if start < 0:
+            print('(' + str(start) + ')-')
+        else:
+            print(start + '-')
+        if end < 0:
+            print('(' + str(end) + ')-')
+        else:
+            print(end)
+
+def printRangeWithHyphens(nums, start, end):
+    if start > end:
+        return
+
+    if len(nums) == 0:
+        printNumbers(start, end)
+
+    next = start
+    for num in nums:
+        if num < start:
+            continue
+        if num > end:
+            printNumbers(next, end)
+            return
+        if num > next:
+            printNumbers(next, num-1)
+        next = num+1
+
+    if next <= end:
+        printNumbers(next, end)
+
+

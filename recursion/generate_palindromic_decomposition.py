@@ -34,6 +34,8 @@ Sample Output:
 
 ]
 '''
+import sys
+import os
 
 def generate_palindromic_decomposition(string):
     results = []
@@ -68,3 +70,4 @@ def is_current_section_palindrome(current_string):
 
 print(generate_palindromic_decomposition("abracadabra"))
 print(len(generate_palindromic_decomposition("eeeeeeeeeeeeeeeeeeee"))) # should be 524288
+

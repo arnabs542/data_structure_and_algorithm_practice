@@ -1,3 +1,6 @@
+import os
+import sys
+
 '''
 3 Sum
 Problem Statement:
@@ -104,7 +107,90 @@ def findZeroSum(arr):
                 k-=1
     return list(results)
 
+if __name__ == "__main__":
+    f = sys.stdout
+
+    arr_size = int(input())
+
+    arr = []
+    for _ in range(arr_size):
+        arr_item = int(input())
+        arr.append(arr_item)
+
+    res = findZeroSum(arr)
+
+    f.write("\n".join(res))
+    f.write('\n')
+    f.close()
+
 print(findZeroSum([10, 3, -4, 1, -6, 9]))
 print(findZeroSum([12, 34, -46]))
 print(findZeroSum([0, 0, 0]))
 print(findZeroSum([-2, 2, 0, -2, 2]))
+
+
+
+'''
+=== EDITORIAL ===
+Brute force solution
+A simple solution is to use three nested loop and check for each possible combination if their sum is zero. 
+To avoid duplicate answers, we need to hash the triplet and store it in a set. An easy way to hash the triplet is 
+by converting them to string.
+
+Example: ‘-1,1,0’
+
+Extra space needed will be the number of unique triplets that contribute to the answer.
+
+Space Complexity: O(n^3)
+Time Complexity: O(n^3)
+
+Optimal solution
+Optimal solution will use the two pointer method. In a two pointer method, we maintain a left and a right pointer 
+to the sorted array. If the sum is more than intended, we decrease the right pointer. Otherwise, we increase the left 
+pointer. Two pointer works in linear time complexity.
+
+
+
+First, we will sort the array. Then, for every index, we will apply two pointer technique to find the sum -arr[index].
+We will then add unique triplets to the answer.
+
+Space Complexity: O(n^3)
+Time Complexity: O(n^2 + nlog(n))
+
+def findZeroSum(nums, k=0):
+    if not nums or len(nums) < 3:
+        return []
+    n = len(nums)
+    output = []
+    nums.sort()
+    for i, num in enumerate(nums[:-2]):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        l = i + 1
+        r = n - 1
+        while l < r:
+            s = num + nums[l] + nums[r]
+            if s > 0:
+                r -= 1
+            elif s < 0:
+                l += 1
+            else:
+                output.append([num, nums[l], nums[r]])
+                # remove duplicates
+                while l + 1 < r and nums[l] == nums[l + 1]:
+                    l += 1
+                while r - 1 > l and nums[r] == nums[r - 1]:
+                    r -= 1
+                l += 1
+                r -= 1
+
+    # return output
+    #  hackerrank wants a string output :-/ ugh
+    return map(lambda x: ','.join([str(a) for a in x]), output)
+
+
+n = [6, 10, 3, -4, 1, -6, 9]
+print findZeroSum(n)
+n = [6, -1, -1, 0, 0, 1, 1]
+print findZeroSum(n)
+'''
