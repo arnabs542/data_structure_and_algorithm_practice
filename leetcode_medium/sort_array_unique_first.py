@@ -1,6 +1,8 @@
 '''
 # Given an array of sorted integers, rearrange the array so that all the unique integers move to the front of the array
-in a sorted fashion and the duplicates end up at the back of the array.
+in a sorted fashion and the duplicates end up at the back of the array. The first part of the array must remain sorted,
+but the duplicates can end in any order.
+
  INPUT = [4,8,8,8,9,10,11,11,12,13]
 
  OUPUT = [4,8,9,10,11,12,13,8,11,8]
