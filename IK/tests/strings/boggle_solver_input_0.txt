@@ -1,0 +1,9 @@
+3
+bst
+heap
+tree
+3
+3
+bsh
+tee
+arh

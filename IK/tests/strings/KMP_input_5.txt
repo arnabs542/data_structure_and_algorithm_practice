@@ -1,0 +1,5 @@
+ABCABC
+3
+ABC
+BCA
+CB

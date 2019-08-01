@@ -1,0 +1,10 @@
+5
+bst
+help
+ab
+b
+d
+2
+3
+abc
+def

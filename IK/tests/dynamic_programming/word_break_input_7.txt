@@ -1,0 +1,12 @@
+10
+hello
+world
+welcome
+to
+this
+judge
+sample
+test
+case
+outputs
+somerandomtexts

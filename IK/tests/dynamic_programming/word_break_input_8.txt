@@ -1,0 +1,7 @@
+5
+exactstring
+useless
+data
+nouse
+totallyuseless
+exactstring

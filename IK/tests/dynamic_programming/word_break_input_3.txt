@@ -1,0 +1,7 @@
+5
+ab
+aab
+aaab
+aaaab
+aaaaab
+aaaaab
